@@ -20,35 +20,41 @@ class WebglPlayer extends AbstractApplication {
             this.fitCamera(this._object3D);
             this._scene.add(this._object3D);
 
-            const material = this._createMaterial(this._data.texture);
-            this._object3D.traverse( ( child ) => {
-                if( child.isMesh && child.material ) {
-                    child.material = material;
-                    child.material.needsUpdate = true
-                    child.geometry.buffersNeedUpdate = true;
-                    child.geometry.uvsNeedUpdate = true;
-                }
-            });
-            
-/*             if(isDebug)
+            this._createMaterial(this._data.texture).then( material => this._setMaterial(material));
+ 
+            /* if(isDebug)
                 new DatGUI(this._object3D); */
         }
         document.addEventListener( Events.ON_LOAD, handleOnLoad.bind(this));
         this.animate();
     }
 
-
+    _setMaterial(material){
+        this._object3D.traverse( ( child ) => {
+            if( child.isMesh && child.material ) {
+                child.material = material;
+                child.material.needsUpdate = true
+                child.geometry.buffersNeedUpdate = true;
+                child.geometry.uvsNeedUpdate = true;
+            }
+        });
+        console.log('----MATERIAL SETTED---');
+    }
 
     _createMaterial(texture){
-        texture.envMap
-        const envMap = new THREE.TextureLoader().load('assets/textures/'+texture.envMap);
-        const options = {
-            envMap,
-            metalness: 1,
-            roughness: 0,
-        };
-
-        return new THREE.MeshStandardMaterial(options);
+        return new Promise( (resolve, reject) => {
+            new THREE.TextureLoader().load('assets/textures/'+texture.envMap, (envMap)=>{
+                const options = {
+                    envMap,
+                    metalness: 1,
+                    roughness: 0,
+                    color: 0xffffff
+                };
+                resolve(new THREE.MeshStandardMaterial(options));
+            }, (e)=>{
+                reject(e)
+            });
+        });
     }
 
     _repositioning(){
