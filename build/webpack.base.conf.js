@@ -29,7 +29,7 @@ module.exports = {
             'views': path.resolve(__dirname, '../src/js/views'),
             'models': path.resolve(__dirname, '../src/models'),
             'shaders': path.resolve(__dirname, '../src/js/shaders'),
-            'sounds': path.resolve(__dirname, '../src/sounds'),
+            //'sounds': path.resolve(__dirname, '../src/sounds'),
             'textures': path.resolve(__dirname, '../src/textures'),
         }
     },
@@ -37,7 +37,7 @@ module.exports = {
         new CopyWebpackPlugin([
             {from: 'src/fonts/', to: 'assets/fonts/'},
             {from: 'src/models/', to: 'assets/models/'},
-            {from: 'src/sounds/', to: 'assets/sounds/'},
+            //{from: 'src/sounds/', to: 'assets/sounds/'},
             {from: 'src/textures/', to: 'assets/textures/'},
         ]),
         new webpack.ProvidePlugin({

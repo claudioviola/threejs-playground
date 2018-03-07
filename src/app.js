@@ -1,6 +1,12 @@
 import 'css/style.css'
-//import Main from 'js/main'
-//import Main from 'js/mainWagner'
-import Main from 'js/mainVR'
+import Player from 'js/Player'
 
-new Main();
+const obj = {
+	model: 'model.obj',
+	texture: {
+		envMap: 'enviroment.jpg',
+	}
+}
+
+const _player = new Player(true);
+_player.loadModel(obj);
