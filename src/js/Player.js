@@ -66,9 +66,26 @@ class WebglPlayer extends AbstractApplication {
     }
 
 
+    _showBox(){
+        var geometry = new THREE.BoxGeometry( 10, 10, 10 );
+        var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        this._object3D = new THREE.Mesh( geometry, material );
+        this._repositioning();
+        this.fitCamera(this._object3D);
+        this._scene.add(  this._object3D );
+
+        this._createMaterial(this._data.texture).then( material => this._setMaterial(material));
+    }
+
     loadModel(data){
         this._data = data;
-        this._loader.loadOBJ(data.model);
+        //this._loader.loadOBJ(data.model);
+    }
+
+
+    createBox(data){
+        this._data = data;
+        this._showBox();
     }
 }
 

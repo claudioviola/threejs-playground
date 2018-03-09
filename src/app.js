@@ -1,7 +1,7 @@
 import 'css/style.css'
 import Player from 'js/Player'
 
-const obj = {
+const data = {
 	model: 'model.obj',
 	texture: {
 		envMap: 'enviroment.jpg',
@@ -9,4 +9,5 @@ const obj = {
 }
 
 const _player = new Player(true);
-_player.loadModel(obj);
+//_player.loadModel(data);
+_player.createBox(data);
